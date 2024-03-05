@@ -1,7 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <body></body>
+  <body>
+    <div id="root"></div>
+  </body>
   <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-  <script></script>
+  <script>
+    const root = document.getElementById("root");
+    const span = React.createElement(
+      "h3", //첫번째 인자에는 태그이름
+      {
+        id: "title",
+        onMouseEnter: () => console.log("mouse enter"),
+      }, //두번째 인자에는 속성 or 이벤트리스너
+      "Hello I am span" //세번째 인자에는 내용을 넣음
+    );
+    const btn = React.createElement(
+      "button",
+      {
+        onClick: () => console.log("mouse click"),
+        style: {
+          backgroundColor: "tomato",
+        },
+      },
+      "click me"
+    );
+
+    const container = React.createElement("div", null, [span, btn]); //span과 button을 배열로 전달
+    ReactDOM.render(container, root); //container을 root안에 render하라.
+  </script>
 </html>
