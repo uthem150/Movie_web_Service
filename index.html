@@ -9,12 +9,12 @@
   <!--브라우저는 jsx를 이해하지 못하므로, 바벨을 통해 번역-->
   <script type="text/babel">
     const root = document.getElementById("root");
-    const Title = (
+    const Title = () => (
       <h3 id="title" onMouseEnter={() => console.log("mouse enter")}>
         Hello I am Title
       </h3>
     );
-    const Button = (
+    const Button = () => (
       <button
         style={{
           backgroundColor: "tomato",
@@ -25,7 +25,12 @@
       </button>
     );
 
-    const container = React.createElement("div", null, [Title, Button]); //span과 button을 배열로 전달
-    ReactDOM.render(container, root); //container을 root안에 render하라.
+    const Container = () => (
+      <div>
+        <Title />
+        <Button />
+      </div>
+    );
+    ReactDOM.render(<Container />, root); //container을 root안에 render하라.
   </script>
 </html>
