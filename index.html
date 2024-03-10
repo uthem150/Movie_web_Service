@@ -12,14 +12,14 @@
 
     function App() {
       const [amount, setAmount] = React.useState(0);
-      const [flipped, setFlipped] = React.useState(false);
+      const [inverted, setInverted] = React.useState(false);
       const onChange = (event) => {
         setAmount(event.target.value); //react에서 값에 접근할 때는 event.targe.value로 접근
       };
       const reset = () => setAmount(0);
-      const onFlip = () => {
+      const onInvert = () => {
         reset();
-        setFlipped((current) => !current); //!flipped로 하는건 좋지 못함
+        setInverted((current) => !current); //!inverted로 하는건 좋지 못함
       };
       return (
         //htmlFor속성을 이용해, label을 input에 연결
@@ -28,27 +28,29 @@
           <div>
             <label htmlFor="minutes">Minutes</label>
             <input
-              value={flipped ? amount * 60 : amount}
+              value={inverted ? amount * 60 : amount}
               id="minutes"
               placeholder="Minutes"
               type="number"
               onChange={onChange} //변화가 일어날때 실행될 것
-              disabled={flipped}
+              disabled={inverted}
             />
           </div>
           <div>
             <label htmlFor="hours">Hours</label>
             <input
-              value={flipped ? amount : amount / 60} //Math.round(minutes / 60)로 하면, 시간만 알려줌
+              value={inverted ? amount : amount / 60} //Math.round(minutes / 60)로 하면, 시간만 알려줌
               id="hours"
               placeholder="Hours"
               type="number"
               onChange={onChange}
-              disabled={!flipped}
+              disabled={!inverted}
             />
           </div>
           <button onClick={reset}>Reset</button>
-          <button onClick={onFlip}>Flip</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "invert"}
+          </button>
         </div>
       );
     }
