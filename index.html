@@ -11,16 +11,27 @@
     const root = document.getElementById("root");
 
     function App() {
-      const [counter, setCounter] = React.useState(0);
-
-      const onClick = () => {
-        // setCounter(counter + 1);
-        setCounter((current) => current + 1); //확실하게 현재값을 기반으로 계산하는 안전한 방법
+      const [minutes, setMinutes] = React.useState();
+      const onChange = (event) => {
+        setMinutes(event.target.value); //react에서 값에 접근할 때는 event.targe.value로 접근
       };
+
       return (
+        //htmlFor속성을 이용해, label을 input에 연결
         <div>
-          <h3>Total clicks: {counter}</h3>
-          <button onClick={onClick}>Click me</button>
+          <h1>Super converter</h1>
+          <label htmlFor="minutes">Minutes</label>
+          <input
+            value={minutes}
+            id="minutes"
+            placeholder="Minutes"
+            type="number"
+            onChange={onChange} //변화가 일어날때 실행될 것
+          />
+          <h4>You want to convert {minutes}</h4>
+
+          <label htmlFor="hours">Hours</label>
+          <input id="hours" placeholder="Hours" type="number" />
         </div>
       );
     }
