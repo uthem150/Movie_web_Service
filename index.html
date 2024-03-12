@@ -8,27 +8,30 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <!--브라우저는 jsx를 이해하지 못하므로, 바벨을 통해 번역-->
   <script type="text/babel">
-    function Btn({ text, big }) {
+    function Btn({ text, changeValue }) {
       return (
         <button
+          onClick={changeValue}
           style={{
             backgroundColor: "tomato",
             color: "while",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
-            fontSize: big ? 20 : 16,
           }}
         >
           {text}
         </button>
       );
     }
+    const MemorizedBtn = React.memo(Btn); //memo기능을 이용해서, props가 바뀌지 않으면, rerender되지 않도록
     function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <Btn text="Save Changes" big={true} />
-          <Btn text="Continue" big={false} />
+          <MemorizedBtn text={value} changeValue={changeValue} />
+          <MemorizedBtn text="Continue" />
         </div>
       );
     }
