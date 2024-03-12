@@ -7,24 +7,36 @@
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <!--브라우저는 jsx를 이해하지 못하므로, 바벨을 통해 번역-->
+
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+  <!-- propTypes : prop의 타입을 지정해서, 타입오류 일어나지 않도록 설정 -->
+
   <script type="text/babel">
-    function Btn({ text, changeValue }) {
+    function Btn({ text, changeValue, fontSize = 14 }) {
+      //폰트크기 기본값 설정
       return (
         <button
           onClick={changeValue}
           style={{
             backgroundColor: "tomato",
-            color: "while",
+            color: "white",
             padding: "10px 20px",
             border: 0,
             borderRadius: 10,
+            fontSize,
           }}
         >
           {text}
         </button>
       );
     }
+    Btn.propTypes = {
+      text: PropTypes.string, //문자형으로 타입 지정
+      fontSize: PropTypes.number.isRequired, //숫자형으로 타입 지정 + 필수요소로 지정
+    };
+
     const MemorizedBtn = React.memo(Btn); //memo기능을 이용해서, props가 바뀌지 않으면, rerender되지 않도록
+
     function App() {
       const [value, setValue] = React.useState("Save Changes");
       const changeValue = () => setValue("Revert Changes");
@@ -32,6 +44,7 @@
         <div>
           <MemorizedBtn text={value} changeValue={changeValue} />
           <MemorizedBtn text="Continue" />
+          <Btn text="button" fontSize={20} />
         </div>
       );
     }
