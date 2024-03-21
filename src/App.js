@@ -1,17 +1,25 @@
-import { useState, useEffect } from "react";
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
-  const [counter, setValue] = useState(0);
-  const onClick = () => setValue((prev) => prev + 1);
-  console.log("I run all the time");
-  useEffect(() => {
-    console.log("call the api");
-  }, []);
   return (
-    <div>
-      <h1>{counter}</h1>
-      <button onClick={onClick}>click me</button>
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
     </div>
   );
 }
+
 export default App;
