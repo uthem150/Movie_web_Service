@@ -2,29 +2,42 @@ import "./App.css";
 import { useState, useEffect } from "react";
 
 function App() {
+  //useState : 함수형 컴포넌트에서 상태(state)를 가질 수 있게 해주는 훅
   const [loading, setLoading] = useState(true);
-  const [coins, setCoins] = useState([]);
+  const [movies, setMovies] = useState([]);
+  const getMovies = async () => {
+    const json = await (
+      await fetch(
+        `https://yts.mx/api/v2/list_movies.json?minimun_rating=8.8&sort_by=year` //평점 8.8이상의 영화를 최신 연도순 정렬
+      )
+    ).json();
+    setMovies(json.data.movies);
+    setLoading(false);
+  };
+  //useEffect : 컴포넌트가 렌더링될 때마다 특정 작업을 수행할 수 있도록 해주는 훅
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers")
-      .then((response) => response.json())
-      .then((json) => {
-        setCoins(json);
-        setLoading(false);
-      });
-  }, []); //한번만 작동하게 하기 위해, 아무것도 지켜보지 않도록 빈배열
+    getMovies();
+  }, []);
+  console.log(movies);
   return (
     <div>
-      <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
       {loading ? (
-        <strong>Loading</strong>
+        <h1>Loading...</h1>
       ) : (
-        <select>
-          {coins.map((coin) => (
-            <option>
-              {coin.name} ({coin.symbol}) : ${coin.quotes.USD.price} USD
-            </option>
+        <div>
+          {movies.map((movie) => (
+            <div key={movie.id}>
+              <img src={movie.medium_cover_image} />
+              <h2>{movie.title}</h2>
+              <p>{movie.summary}</p>
+              <ul>
+                {movie.genres.map((g) => (
+                  <li key={g}>{g}</li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </select>
+        </div>
       )}
     </div>
   );
