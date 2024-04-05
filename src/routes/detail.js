@@ -25,6 +25,7 @@ function Detail() {
           <div>
             <img src={movie.medium_cover_image} alt={movie.title} />
             <h2>{movie.title}</h2>
+            <p>{movie.rating}</p>
             <p>{movie.summary}</p>
             <ul>
               {movie.genres && movie.genres.map((g) => <li key={g}>{g}</li>)}
