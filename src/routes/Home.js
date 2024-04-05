@@ -5,10 +5,11 @@ function Home() {
   //useState : 함수형 컴포넌트에서 상태(state)를 가질 수 있게 해주는 훅
   const [loading, setLoading] = useState(true);
   const [movies, setMovies] = useState([]);
+
   const getMovies = async () => {
     const json = await (
       await fetch(
-        `https://yts.mx/api/v2/list_movies.json?minimun_rating=8.8&sort_by=year` //평점 8.8이상의 영화를 최신 연도순 정렬
+        `https://yts.mx/api/v2/list_movies.json?minimum_rating=9&sort_by=year`
       )
     ).json();
     setMovies(json.data.movies);
@@ -28,6 +29,8 @@ function Home() {
           {movies.map((movie) => (
             <Movie
               key={movie.id}
+              id={movie.id}
+              rating={movie.rating}
               coverImage={movie.medium_cover_image}
               title={movie.title}
               summary={movie.summary}
