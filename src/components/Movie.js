@@ -9,7 +9,7 @@ function Movie({ id, rating, coverImage, title, year, summary, genres }) {
       <img src={coverImage} alt={title} className={styles.movie__img} />
       <div>
         <h2 className={styles.movie__title}>
-          <Link to={`/movie/${id}`}>{title}</Link>
+          <Link to={`${process.env.PUBLIC_URL}/movie/${id}`}>{title}</Link>
         </h2>
         <h3 className={styles.movie__year}>{year}</h3>
         <p>{rating}</p>
