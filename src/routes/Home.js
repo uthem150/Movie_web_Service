@@ -25,6 +25,12 @@ function Home() {
     <div className={styles.container}>
       {loading ? (
         <div className={styles.loader}>
+          <div className={styles.loader_ani}>
+            <div className={styles.circle}></div>
+            <div className={styles.circle}></div>
+            <div className={styles.circle}></div>
+            <div className={styles.square}></div>
+          </div>
           <span>Loading...</span>
         </div>
       ) : (
